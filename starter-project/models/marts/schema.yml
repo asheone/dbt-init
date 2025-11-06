@@ -25,6 +25,17 @@ sources:
           - name: geoname
             description: Geographic name of the allowed territory
 
+  - name: starlink
+    description: Starlink satellite network allowed territories
+    tables:
+      - name: allowed_territories
+        description: List of territories where Starlink operations are allowed
+        columns:
+          - name: geoname
+            description: Geographic name of the allowed territory
+          - name: location
+            description: Specific location identifier within the territory
+
 models:
   - name: int_h3_countries_aggregated
     description: >
@@ -97,6 +108,40 @@ models:
         description: Territory name (mode/most frequent within the hexagon for aggregated resolutions)
       - name: iso3
         description: ISO 3166-1 alpha-3 country code
+      - name: num_territories
+        description: Number of distinct territories within the hexagon (useful for detecting multi-territory hexagons at coarser resolutions)
+      - name: territory_confidence_pct
+        description: Confidence percentage for territory assignment (0-100), indicating the proportion of child cells belonging to the assigned territory
+
+  - name: starlink_allowed12NM
+    description: >
+      Starlink allowed territories across multiple H3 resolutions (1, 3, 5, 7).
+      Filters territorial waters to only include regions where Starlink
+      satellite operations are permitted. Uses mode (most frequent territory)
+      aggregation for coarser resolutions (res1, res3) to handle multi-territory
+      hexagons. Includes location data for Starlink-specific coverage analysis.
+      Provides coverage at multiple granularities for network planning.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index
+        tests:
+          - not_null
+      - name: h3_resolution
+        description: H3 resolution level (1, 3, 5, or 7)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 3, 5, 7]
+      - name: geoname
+        description: Geographic name of the allowed territory (mode/most frequent within the hexagon for aggregated resolutions)
+        tests:
+          - not_null
+      - name: territory
+        description: Territory name (mode/most frequent within the hexagon for aggregated resolutions)
+      - name: iso3
+        description: ISO 3166-1 alpha-3 country code
+      - name: location
+        description: Specific location identifier within the territory (mode/most frequent for aggregated resolutions)
       - name: num_territories
         description: Number of distinct territories within the hexagon (useful for detecting multi-territory hexagons at coarser resolutions)
       - name: territory_confidence_pct
