@@ -1,0 +1,97 @@
+version: 2
+
+sources:
+  - name: territorial
+    description: Territorial waters and maritime boundaries
+    tables:
+      - name: h3_world_12nm
+        description: H3 hexagons within 12 nautical miles of territorial boundaries
+        columns:
+          - name: h3_index
+            description: H3 hexagon index
+          - name: geoname
+            description: Geographic name of the territory
+          - name: territory
+            description: Territory name
+          - name: iso3
+            description: ISO 3166-1 alpha-3 country code
+
+  - name: oneweb
+    description: OneWeb satellite network allowed territories
+    tables:
+      - name: allowed_territories
+        description: List of territories where OneWeb operations are allowed
+        columns:
+          - name: geoname
+            description: Geographic name of the allowed territory
+
+models:
+  - name: int_h3_countries_aggregated
+    description: >
+      Aggregates country data across multiple H3 resolutions (1, 3, 5, 7).
+      Uses mode (most frequent country) to determine country assignment at
+      coarser resolutions. Includes confidence metrics and border detection.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index
+        tests:
+          - not_null
+      - name: h3_resolution
+        description: H3 resolution level (1, 3, 5, or 7)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 3, 5, 7]
+      - name: country_name
+        description: Country name (mode/most frequent within the hexagon)
+        tests:
+          - not_null
+      - name: is_country_border
+        description: Boolean flag indicating if hexagon contains multiple countries
+      - name: num_countries
+        description: Number of distinct countries within the hexagon
+      - name: country_confidence_pct
+        description: Confidence percentage for country assignment (0-100)
+
+  - name: int_h3_world_12NM
+    description: >
+      Intermediate model for territorial waters within 12 nautical miles.
+      Maps H3 hexagons to territories, countries, and ISO codes for
+      maritime boundary analysis.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index
+        tests:
+          - not_null
+      - name: geoname
+        description: Geographic name of the territory
+      - name: territory
+        description: Territory name
+      - name: iso3
+        description: ISO 3166-1 alpha-3 country code
+
+  - name: oneweb_allowed12NM
+    description: >
+      OneWeb allowed territories across multiple H3 resolutions (1, 3, 5, 7).
+      Filters territorial waters to only include regions where OneWeb
+      satellite operations are permitted. Provides coverage at multiple
+      granularities for network planning and analysis.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index
+        tests:
+          - not_null
+      - name: h3_resolution
+        description: H3 resolution level (1, 3, 5, or 7)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 3, 5, 7]
+      - name: geoname
+        description: Geographic name of the allowed territory
+        tests:
+          - not_null
+      - name: territory
+        description: Territory name
+      - name: iso3
+        description: ISO 3166-1 alpha-3 country code

@@ -1,0 +1,50 @@
+version: 2
+
+sources:
+  - name: global_poi
+    description: Global points of interest and country boundary data
+    tables:
+      - name: countries_res7
+        description: Country boundaries at H3 resolution 7
+        columns:
+          - name: h3_index
+            description: H3 hexagon index at resolution 7
+          - name: name
+            description: Country name
+          - name: is_country_border_hexagon
+            description: Flag indicating if hexagon is on country border
+
+models:
+  - name: stg_global_poi_countries_res7
+    description: >
+      Staging model for global POI countries at H3 resolution 7.
+      This is the base resolution for country data, providing the most granular
+      geographic detail for country boundaries.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index at resolution 7
+        tests:
+          - not_null
+      - name: name
+        description: Country name
+        tests:
+          - not_null
+      - name: is_country_border_hexagon
+        description: Boolean flag indicating if hexagon is on a country border
+
+  - name: stg_global_poi_countries_res5
+    description: >
+      Staging model for global POI countries at H3 resolution 5.
+      This aggregates from res7 using H3 parent cells to provide a coarser
+      geographic resolution for country boundaries.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index at resolution 5 (parent of res7)
+        tests:
+          - not_null
+      - name: name
+        description: Country name
+        tests:
+          - not_null
+      - name: is_country_border_hexagon
+        description: Boolean flag indicating if hexagon is on a country border
