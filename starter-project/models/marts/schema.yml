@@ -74,8 +74,10 @@ models:
     description: >
       OneWeb allowed territories across multiple H3 resolutions (1, 3, 5, 7).
       Filters territorial waters to only include regions where OneWeb
-      satellite operations are permitted. Provides coverage at multiple
-      granularities for network planning and analysis.
+      satellite operations are permitted. Uses mode (most frequent territory)
+      aggregation for coarser resolutions (res1, res3) to handle multi-territory
+      hexagons. Provides coverage at multiple granularities for network planning
+      and analysis.
     columns:
       - name: h3_index
         description: H3 hexagon index
@@ -88,10 +90,14 @@ models:
           - accepted_values:
               values: [1, 3, 5, 7]
       - name: geoname
-        description: Geographic name of the allowed territory
+        description: Geographic name of the allowed territory (mode/most frequent within the hexagon for aggregated resolutions)
         tests:
           - not_null
       - name: territory
-        description: Territory name
+        description: Territory name (mode/most frequent within the hexagon for aggregated resolutions)
       - name: iso3
         description: ISO 3166-1 alpha-3 country code
+      - name: num_territories
+        description: Number of distinct territories within the hexagon (useful for detecting multi-territory hexagons at coarser resolutions)
+      - name: territory_confidence_pct
+        description: Confidence percentage for territory assignment (0-100), indicating the proportion of child cells belonging to the assigned territory
