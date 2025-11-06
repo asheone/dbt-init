@@ -14,6 +14,31 @@ sources:
           - name: is_country_border_hexagon
             description: Flag indicating if hexagon is on country border
 
+  - name: oneweb
+    description: OneWeb satellite network coverage and operational data
+    tables:
+      - name: coverage_res3
+        description: OneWeb physical coverage at H3 resolution 3
+        columns:
+          - name: h3_index
+            description: H3 hexagon index at resolution 3
+          - name: has_coverage
+            description: Boolean flag indicating if the hexagon has physical coverage
+      - name: coverage_res5
+        description: OneWeb physical coverage at H3 resolution 5
+        columns:
+          - name: h3_index
+            description: H3 hexagon index at resolution 5
+          - name: has_coverage
+            description: Boolean flag indicating if the hexagon has physical coverage
+      - name: coverage_res7
+        description: OneWeb physical coverage at H3 resolution 7
+        columns:
+          - name: h3_index
+            description: H3 hexagon index at resolution 7
+          - name: has_coverage
+            description: Boolean flag indicating if the hexagon has physical coverage
+
 models:
   - name: stg_global_poi_countries_res7
     description: >
@@ -48,3 +73,39 @@ models:
           - not_null
       - name: is_country_border_hexagon
         description: Boolean flag indicating if hexagon is on a country border
+
+  - name: stg_oneweb_coverage_res3
+    description: >
+      Staging model for OneWeb physical coverage at H3 resolution 3.
+      Provides base coverage data for aggregation to coarser resolutions.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index at resolution 3
+        tests:
+          - not_null
+      - name: has_coverage
+        description: Boolean flag indicating if the hexagon has physical OneWeb coverage
+
+  - name: stg_oneweb_coverage_res5
+    description: >
+      Staging model for OneWeb physical coverage at H3 resolution 5.
+      Provides granular coverage data for analysis and visualization.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index at resolution 5
+        tests:
+          - not_null
+      - name: has_coverage
+        description: Boolean flag indicating if the hexagon has physical OneWeb coverage
+
+  - name: stg_oneweb_coverage_res7
+    description: >
+      Staging model for OneWeb physical coverage at H3 resolution 7.
+      Provides the most detailed coverage data at the finest resolution.
+    columns:
+      - name: h3_index
+        description: H3 hexagon index at resolution 7
+        tests:
+          - not_null
+      - name: has_coverage
+        description: Boolean flag indicating if the hexagon has physical OneWeb coverage
