@@ -11,7 +11,7 @@
 
 I am pleased to submit this proposal for the development of a comprehensive Looker Studio dashboard solution for Martin House Children's Hospice. With over 8 years of specialized experience in analytics engineering and business intelligence, including the successful implementation of multiple Looker instances and training of 250+ users, I am well-positioned to deliver a robust, scalable dashboard that will transform your Income Generation team's reporting capabilities.
 
-This proposal outlines a structured 15-week engagement to centralize your marketing, fundraising, and advertising data into an automated, real-time reporting environment—eliminating manual processes and enabling data-driven decision-making across your organization.
+This proposal outlines a structured 12-week engagement to centralize your marketing, fundraising, and advertising data into an automated, real-time reporting environment—eliminating manual processes and enabling data-driven decision-making across your organization.
 
 ---
 
@@ -56,13 +56,12 @@ My background makes me uniquely qualified for this project:
 
 ## Proposed Approach & Methodology
 
-### Phase 1: Discovery & Scoping (Weeks 1-4)
-**Effort: 8 days**
+### Phase 1: Discovery & Scoping (Weeks 1-2)
+**Effort: 5 days**
 
 - Kick-off workshop with Income Generation team to validate KPIs and success metrics
 - Comprehensive audit of all data sources and API capabilities
 - Define exact data fields, granularity, and refresh requirements for each platform
-- Document data quality considerations and transformation requirements
 - Create detailed dashboard wireframes and design mockups aligned with Martin House branding
 - Establish data governance and access control requirements
 
@@ -70,26 +69,23 @@ My background makes me uniquely qualified for this project:
 - Project charter with confirmed scope and success criteria
 - Technical architecture document detailing data flow and connections
 - Dashboard design wireframes for stakeholder approval
-- Risk assessment and mitigation plan
 
-### Phase 2: Data Infrastructure Setup (Weeks 4-8)
-**Effort: 16 days**
+### Phase 2: Data Infrastructure Setup (Weeks 2-5)
+**Effort: 10 days**
 
 - Configure and test API connections for all data sources
 - Implement necessary third-party connectors (e.g., Supermetrics, Porter, or custom solutions)
 - Build data transformation layer to standardize metrics across platforms
 - Establish automated data refresh schedules
 - Create data validation and quality monitoring processes
-- Set up development and production environments
 
 **Deliverables:**
 - Fully functional data pipeline connections
 - Data refresh automation configured
-- Data quality monitoring dashboard
 - Connection documentation and credentials management guide
 
-### Phase 3: Dashboard Development (Weeks 8-14)
-**Effort: 24 days**
+### Phase 3: Dashboard Development (Weeks 5-10)
+**Effort: 15 days**
 
 - Build main overview dashboard with consolidated KPIs across all channels
 - Develop platform-specific sub-dashboards for deep-dive analysis
@@ -97,7 +93,6 @@ My background makes me uniquely qualified for this project:
 - Create comparison and benchmarking functionality
 - Configure export templates for Word, PDF, and Google Sheets
 - Apply Martin House branding and design standards
-- Implement user access controls and sharing permissions
 
 **Deliverables:**
 - Main overview dashboard
@@ -106,23 +101,22 @@ My background makes me uniquely qualified for this project:
 - Export templates configured
 - Branded dashboard suite
 
-### Phase 4: Testing, Training & Delivery (Weeks 14-15)
-**Effort: 7 days**
+### Phase 4: Testing, Training & Delivery (Weeks 10-12)
+**Effort: 5 days**
 
 - Comprehensive testing with Income Generation team
 - Data accuracy validation against source systems
 - User acceptance testing and feedback incorporation
 - Live training sessions for marketing team (2 sessions of 2 hours each)
-- Create comprehensive user documentation and quick reference guides
-- Establish maintenance procedures and troubleshooting protocols
+- Create user documentation and quick reference guides
 - Final handover and go-live support
 
 **Deliverables:**
 - Validated, production-ready dashboard suite
 - User training sessions (recorded for future reference)
-- Comprehensive documentation package
+- Documentation package
 - Maintenance and troubleshooting guide
-- 2 weeks post-launch support
+- 1 week post-launch support
 
 ---
 
@@ -131,11 +125,11 @@ My background makes me uniquely qualified for this project:
 ### Professional Services
 | Phase | Effort (Days) | Rate | Investment |
 |-------|---------------|------|------------|
-| Phase 1: Discovery & Scoping | 8 | £500/day | £4,000 |
-| Phase 2: Data Infrastructure | 16 | £500/day | £8,000 |
-| Phase 3: Dashboard Development | 24 | £500/day | £12,000 |
-| Phase 4: Testing, Training & Delivery | 7 | £500/day | £3,500 |
-| **Total Professional Services** | **55 days** | | **£27,500** |
+| Phase 1: Discovery & Scoping | 5 | £400/day | £2,000 |
+| Phase 2: Data Infrastructure | 10 | £400/day | £4,000 |
+| Phase 3: Dashboard Development | 15 | £400/day | £6,000 |
+| Phase 4: Testing, Training & Delivery | 5 | £400/day | £2,000 |
+| **Total Professional Services** | **35 days** | | **£14,000** |
 
 ### Third-Party Tools & Connectors
 *(Estimated - final costs dependent on specific data sources)*
@@ -149,33 +143,33 @@ My background makes me uniquely qualified for this project:
 ### Ongoing Support (Optional)
 | Service | Monthly Rate | Includes |
 |---------|--------------|----------|
-| Maintenance & Support | £1,500/month | Dashboard updates, troubleshooting, monthly review |
-| Ad-hoc Development | £500/day | New features, additional data sources, report templates |
+| Maintenance & Support | £1,200/month | Dashboard updates, troubleshooting, monthly review |
+| Ad-hoc Development | £400/day | New features, additional data sources, report templates |
 
 ### Total Project Investment
-**Core Project: £27,500 - £29,500**
+**Core Project: £14,500 - £16,000**
 *(Professional services + third-party tools)*
 
-**Payment Terms:** Invoiced monthly based on phase completion, with 50% deposit upon contract signing.
+**Payment Terms:** Invoiced monthly based on phase completion, with 30% deposit upon contract signing.
 
 ---
 
 ## Project Timeline
 
 ```
-Week 1-4    ████████ Phase 1: Discovery & Scoping
-Week 4-8    ████████ Phase 2: Data Infrastructure
-Week 8-14   ████████████ Phase 3: Dashboard Development
-Week 14-15  ████ Phase 4: Testing & Training
-            └─ Target Completion: Spring 2026
+Week 1-2    ████ Phase 1: Discovery & Scoping
+Week 2-5    ██████ Phase 2: Data Infrastructure
+Week 5-10   ██████████ Phase 3: Dashboard Development
+Week 10-12  ████ Phase 4: Testing & Training
+            └─ Target Completion: 12 weeks
 ```
 
 **Key Milestones:**
-- Week 4: Scope sign-off and design approval
-- Week 8: Data connections validated
-- Week 12: Dashboard beta review
-- Week 14: User acceptance testing complete
-- Week 15: Go-live and training delivery
+- Week 2: Scope sign-off and design approval
+- Week 5: Data connections validated
+- Week 8: Dashboard beta review
+- Week 10: User acceptance testing complete
+- Week 12: Go-live and training delivery
 
 ---
 
