@@ -1,0 +1,17 @@
+# Core dependencies for economic data collection
+yfinance>=0.2.40
+fredapi>=0.5.2
+pandas>=2.0.0
+numpy>=1.24.0
+requests>=2.31.0
+
+# Optional but recommended
+fear-and-greed>=1.0.0  # For Fear & Greed Index
+python-dotenv>=1.0.0   # For API key management
+
+# Visualization (optional)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Data analysis (optional)
+scipy>=1.11.0
