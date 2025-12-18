@@ -8,29 +8,31 @@ This macro automatically tracks historical changes to dimension records by:
 - Detecting changes via content hashing of all business columns
 - Creating versioned records with effective date ranges
 - Maintaining a current record flag for easy querying
+- Supporting both `source()` and `ref()` inputs
 
 ## Quick Start
 
+**Using a source table:**
 ```sql
 {{ config(materialized='table') }}
 
-{{ scd_type2("source_name", "table_name", "primary_key_column") }}
+{{ scd_type2("accounts", "id", source_name="singleops") }}
 ```
 
-**Example:**
+**Using a ref (model):**
 ```sql
 {{ config(materialized='table') }}
 
-{{ scd_type2("singleops", "accounts", "id") }}
+{{ scd_type2("stg_accounts", "id") }}
 ```
 
 ## Parameters
 
 | Parameter | Required | Default | Description |
 |-----------|----------|---------|-------------|
-| `source_name` | Yes | - | Name of the source defined in `sources.yml` |
-| `source_table` | Yes | - | Name of the source table |
+| `table_name` | Yes | - | Source table or model name |
 | `business_key` | Yes | - | Primary/unique key column for the entity |
+| `source_name` | No | `none` | Source schema name. If provided, uses `source()`. If omitted, uses `ref()` |
 | `timestamp_column` | No | `_ab_source_file_last_modified` | Column used to order record versions |
 | `exclude_columns` | No | `[]` | Additional columns to exclude from change detection |
 | `effective_start_date_column` | No | `effective_start_date` | Output column name for version start |
@@ -62,11 +64,18 @@ The following Airbyte metadata columns are **automatically excluded** from chang
 
 ## Examples
 
-### Basic Usage
+### From Source Table
 ```sql
 {{ config(materialized='table') }}
 
-{{ scd_type2("crm", "customers", "customer_id") }}
+{{ scd_type2("customers", "customer_id", source_name="crm") }}
+```
+
+### From Model (ref)
+```sql
+{{ config(materialized='table') }}
+
+{{ scd_type2("stg_customers", "customer_id") }}
 ```
 
 ### With Custom Timestamp Column
@@ -74,9 +83,9 @@ The following Airbyte metadata columns are **automatically excluded** from chang
 {{ config(materialized='table') }}
 
 {{ scd_type2(
-    source_name="crm",
-    source_table="customers",
+    table_name="customers",
     business_key="customer_id",
+    source_name="crm",
     timestamp_column="updated_at"
 ) }}
 ```
@@ -86,9 +95,9 @@ The following Airbyte metadata columns are **automatically excluded** from chang
 {{ config(materialized='table') }}
 
 {{ scd_type2(
-    source_name="crm",
-    source_table="customers",
+    table_name="customers",
     business_key="customer_id",
+    source_name="crm",
     exclude_columns=['internal_notes', 'sync_status']
 ) }}
 ```
@@ -98,9 +107,9 @@ The following Airbyte metadata columns are **automatically excluded** from chang
 {{ config(materialized='table') }}
 
 {{ scd_type2(
-    source_name="crm",
-    source_table="customers",
+    table_name="customers",
     business_key="customer_id",
+    source_name="crm",
     effective_start_date_column="valid_from",
     effective_end_date_column="valid_to",
     current_record_column="is_active",
@@ -144,8 +153,9 @@ packages:
 
 ## How It Works
 
-1. **Source Data** - Reads all columns from the source, excluding metadata
-2. **Hash Generation** - Creates a content hash of all business columns (except business key)
-3. **Deduplication** - Groups by business key + hash, keeping the earliest occurrence
-4. **Versioning** - Orders unique versions chronologically and assigns version numbers
-5. **SCD Metadata** - Calculates effective dates and current record flags
+1. **Source Resolution** - Uses `source()` if `source_name` provided, otherwise `ref()`
+2. **Column Detection** - Reads all columns from schema, excluding metadata
+3. **Hash Generation** - Creates a content hash of all business columns (except business key)
+4. **Deduplication** - Groups by business key + hash, keeping the earliest occurrence
+5. **Versioning** - Orders unique versions chronologically and assigns version numbers
+6. **SCD Metadata** - Calculates effective dates and current record flags

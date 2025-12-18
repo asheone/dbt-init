@@ -1,7 +1,7 @@
 {% macro scd_type2(
-    source_name,
-    source_table,
+    table_name,
     business_key,
+    source_name=none,
     timestamp_column='_ab_source_file_last_modified',
     exclude_columns=[],
     effective_start_date_column='effective_start_date',
@@ -30,8 +30,8 @@
 {#- Build complete exclusion list -#}
 {%- set all_excluded_columns = airbyte_columns + tracking_columns + exclude_columns -%}
 
-{#- Get source relation and columns from schema -#}
-{%- set source_relation = source(source_name, source_table) -%}
+{#- Get source relation: use source() if source_name provided, otherwise use ref() -#}
+{%- set source_relation = source(source_name, table_name) if source_name else ref(table_name) -%}
 {%- set source_columns = adapter.get_columns_in_relation(source_relation) -%}
 {%- set column_names = source_columns | map(attribute='name') | list -%}
 
