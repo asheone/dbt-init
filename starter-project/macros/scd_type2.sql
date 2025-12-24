@@ -208,21 +208,21 @@ FROM versioned
     current_record_column='is_current_record'
 ) %}
 
-MERGE {{ this }} AS target
-USING (
+UPDATE {{ this }}
+SET
+    {{ current_record_column }} = FALSE,
+    {{ effective_end_date_column }} = TIMESTAMP_SUB(updates.latest_start_date, INTERVAL 1 MILLISECOND)
+FROM (
     SELECT
-        {{ business_key }},
+        {{ business_key }} AS _bk,
         MAX({{ effective_start_date_column }}) AS latest_start_date
     FROM {{ this }}
     WHERE {{ current_record_column }} = TRUE
-    GROUP BY {{ business_key }}
+    GROUP BY 1
     HAVING COUNT(*) > 1
-) AS duplicates
-ON target.{{ business_key }} = duplicates.{{ business_key }}
-   AND target.{{ current_record_column }} = TRUE
-   AND target.{{ effective_start_date_column }} < duplicates.latest_start_date
-WHEN MATCHED THEN UPDATE SET
-    {{ current_record_column }} = FALSE,
-    {{ effective_end_date_column }} = TIMESTAMP_SUB(duplicates.latest_start_date, INTERVAL 1 MILLISECOND)
+) AS updates
+WHERE {{ business_key }} = updates._bk
+  AND {{ current_record_column }} = TRUE
+  AND {{ effective_start_date_column }} < updates.latest_start_date
 
 {% endmacro %}
